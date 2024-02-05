@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Function to prompt user for input and read it
+prompt_input() {
+    read -p "$1: " input
+    echo "$input"
+}
+
+# Prompt user for input patterns
+echo "Enter input patterns (up to 4 patterns):"
+input_patterns=()
+for ((i=1; i<=4; i++)); do
+    pattern=$(prompt_input "Pattern $i (or leave empty to skip)")
+    if [ -z "$pattern" ]; then
+        break
+    fi
+    input_patterns+=("$pattern")
+done
+
+# Prompt user for input data
+echo "Enter input data (up to 4 data):"
+input_data=()
+for ((i=1; i<=4; i++)); do
+    data=$(prompt_input "Data $i (or leave empty to skip)")
+    if [ -z "$data" ]; then
+        break
+    fi
+    input_data+=("$data")
+done
+
+# Match input patterns against input data
+echo "Matching input patterns:"
+for pattern in "${input_patterns[@]}"; do
+    echo "Pattern: $pattern"
+    for data in "${input_data[@]}"; do
+        if [[ $data =~ $pattern ]]; then
+            echo "    Matched: $data"
+        else
+            echo "    Not matched: $data"
+        fi
+    done
+    echo
+done

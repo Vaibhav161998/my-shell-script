@@ -1,0 +1,28 @@
+#!/bin/bash
+
+input_patterns=(
+    "Renault_"
+    "Renault_[0-9][0-9]_"
+    "[a-z][a-z][a-z]_[0-9][0-9]"
+    "[a-z][a-z][a-z]_[0-9][0-9]_ddmmyyyy_"
+)
+
+input_data=(
+    "Renault_"
+    "Renault_99_"
+    "abc_12"
+    "abc_34_ddmmyyyy_"
+)
+
+echo "Matching input patterns:"
+for pattern in "${input_patterns[@]}"; do
+    echo "Pattern: $pattern"
+    for data in "${input_data[@]}"; do
+        if [[ $data =~ $pattern ]]; then
+            echo "    Matched: $data"
+        else
+            echo "    Not matched: $data"
+        fi
+    done
+    echo
+done
